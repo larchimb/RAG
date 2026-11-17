@@ -8,5 +8,3 @@ class Retriever():
     def search(self) -> None:
         '''Find the corresponding indice from the query'''
         ...
-
-    

@@ -1,20 +1,20 @@
 class Indexer():
-    """To create the index for .py or .md files"""
+    """Create the index for .py or .md files"""
 
     def load_files(self) -> None:
-        """Find the files, check if they are available"""
+        """Find the files and check that they are readable"""
         ...
 
     def chunk_python(self) -> None:
-        """Chunk a python file in functions"""
+        """Split a Python file into chunks by function"""
         ...
 
     def chunk_text(self) -> None:
-        """Chunk a md or text file in chunks"""
+        """Split a Markdown or text file into chunks"""
         ...
 
     def build_index(self) -> None:
-        """Build the index depending of the BM25 method"""
+        """Build the index with the BM25 method"""
         ...
 
     def save_index(self) -> None:

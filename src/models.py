@@ -1,24 +1,32 @@
 import uuid
 from typing import List, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class MinimalSource(BaseModel):
     """A single source location: a character span inside a corpus file."""
 
     file_path: str
-    first_character_index: int
-    last_character_index: int
+    first_character_index: int = Field(ge=0)
+    last_character_index: int = Field(ge=0)
 
 
-class Chunk(BaseModel):
+class Chunk(MinimalSource):
     """Internal model: a piece of a corpus file stored in the index."""
 
-    file_path: str
-    first_character_index: int
-    last_character_index: int
     type: Literal["doc", "code"]
     text: str
+
+    @model_validator(mode="after")
+    def check_position(self) -> "Chunk":
+        """To check that first index is smaller than last one"""
+        diff = self.last_character_index - self.first_character_index
+        if diff <= 0:
+            raise ValueError(
+                f"[ERROR]: {self.file_path} is incorrect, "
+                "final index is smaller than starting one"
+                )
+        return self
 
 
 class UnansweredQuestion(BaseModel):

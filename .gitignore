@@ -1,4 +1,10 @@
+#Temporary:
+CLAUDE.md
+RAG.pdf
+moulinette
+
 .venv/
 data/
 __pycache__/
 .mypy_cache/
+.flake8
